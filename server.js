@@ -1,16 +1,34 @@
 const express = require('express');
 const bodyParser = require('body-parser')
-const MongoClient = require('mongodb').MongoClient
-const app = express();
+const methodOverride = require('method-override')
+const mongoose = require('mongoose')
 
-app.use(express.static('public'))
-app.set('view engine', 'ejs')
+
+const app = express();
+const http = require('http')
+const server = http.createServer(app)
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(methodOverride());
+
+const router = express.Router()
+
+router.get("/", function (req, res) {
+    res.send("Hello World!");
+});
 
 username = 'root'
 password = 'root'
 connectionString = `mongodb+srv://${username}:${password}@cluster0.lhms6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
-MongoClient.connect(connectionString, { useUnifiedTopology: true })
+mongoose.connect(connectionString)
+    .then(() => {
+        app.listen(3000, () => console.log("Node server running on http://localhost:3000"))
+    })
+    .catch(err => console.error(`ERROR: connecting to database. ${err}`))
+
+/*MongoClient.connect(connectionString, { useUnifiedTopology: true })
     .then(client =>{
         console.log('Connected to the database')
         const db = client.db('star-wars-quotes')
@@ -70,4 +88,4 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
                 })
                 .catch(error => console.error(error))
         })
-    })
+    })*/
