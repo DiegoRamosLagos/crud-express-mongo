@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const app = express();
 
+app.use(express.static('public'))
 app.set('view engine', 'ejs')
 
 username = 'root'
@@ -16,6 +17,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         const quotesCollection = db.collection('quotes')
 
         app.use(bodyParser.urlencoded({ extended: true }))
+        app.use(bodyParser.json())
 
         app.listen(3000, () => {
             console.log('listening on port 3000')
@@ -33,6 +35,25 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
             quotesCollection.insertOne(req.body)
                 .then(() => {
                     res.redirect('/')
+                })
+                .catch(error => console.error(error))
+        })
+
+        app.put('/quotes', (req, res) => {
+            quotesCollection.findOneAndUpdate(
+                { name: 'Yoda' },
+                {
+                    $set: {
+                        name: req.body.name,
+                        quote: req.body.quote
+                    }
+                },
+                {
+                    upsert: true
+                }
+            )
+                .then(result => {
+                    res.json('success')
                 })
                 .catch(error => console.error(error))
         })
