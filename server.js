@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const app = express();
 
+app.set('view engine', 'ejs')
+
 username = 'root'
 password = 'root'
 connectionString = `mongodb+srv://${username}:${password}@cluster0.lhms6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
@@ -22,10 +24,9 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         app.get('/', ((req, res) => {
             db.collection('quotes').find().toArray()
                 .then(results => {
-                    console.log(results)
+                    res.render('index.ejs', {quotes: results})
                 })
                 .catch(error => console.error(error))
-            res.sendFile(__dirname + '/index.html')
         }))
 
         app.post('/quotes', (req, res) => {
