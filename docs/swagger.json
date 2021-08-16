@@ -1,0 +1,171 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Node quotes",
+    "contact": {
+      "name": "Diego Ramos",
+      "email": "diegoa.ramosl@gmail.com"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/{base}",
+      "variables": {
+        "base": {
+          "default": "api"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/quotes": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Get all quotes",
+        "operationId": "Getallquotes",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Save new quote",
+        "operationId": "Savenewquote",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SavenewquoteRequest"
+              },
+              "example": {
+                "name": "yoda",
+                "quote": "Ichi ni Ichi ni san arigato"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/quotes/{selected_id}": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Get quote by id",
+        "operationId": "Getquotebyid",
+        "parameters": [
+          {
+            "name": "selected_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Update quote by id",
+        "operationId": "Updatequotebyid",
+        "parameters": [
+          {
+            "name": "selected_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatequotebyidRequest"
+              },
+              "example": {
+                "name": "Darth Vader",
+                "quote": "Sigo siendo tu padre"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Delete quote by id",
+        "operationId": "Deletequotebyid",
+        "parameters": [
+          {
+            "name": "selected_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ]
+}

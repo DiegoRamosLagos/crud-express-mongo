@@ -3,6 +3,8 @@ const app = express();
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
+const swaggerUI = require('swagger-ui-express')
+const swaggerDocument = require('./docs/swagger.json')
 
 username = 'root'
 password = 'root'
@@ -44,6 +46,7 @@ quotes.route('/quotes/:id')
     .delete(quotesController.deleteQuote)
 
 app.use('/api', quotes)
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 app.listen(3000, () => {
     console.log("Node server running on http://localhost:3000");
