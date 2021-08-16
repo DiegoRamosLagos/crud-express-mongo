@@ -16,7 +16,8 @@
     "express": "^4.17.1",
     "method-override": "^3.0.0",
     "mongodb": "^4.1.0",
-    "mongoose": "^5.13.7"
+    "mongoose": "^5.13.7",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
